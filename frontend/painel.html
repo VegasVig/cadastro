@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel — Vegas Vigilância</title>
+<link rel="icon" href="../assets/logo-small.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="painel-header">
+  <div class="brand">
+    <img src="../assets/logo-vegas-branca.png" alt="Vegas">
+    <b>Painel Administrativo</b>
+  </div>
+  <div class="acoes" style="display:flex;gap:10px;align-items:center">
+    <span id="usuario-log" style="color:var(--prata);font-size:.82rem"></span>
+    <button onclick="sair()">Sair</button>
+  </div>
+</header>
+
+<div class="wrap wrap-wide">
+
+  <!-- estatísticas -->
+  <div class="stats" id="stats">
+    <div class="stat"><div class="n" id="s-total">0</div><div class="l">Total de cadastros</div></div>
+    <div class="stat dourado"><div class="n" id="s-hoje">0</div><div class="l">Cadastros hoje</div></div>
+    <div class="stat dourado"><div class="n" id="s-semana">0</div><div class="l">Cadastros na semana</div></div>
+    <div class="stat aviso"><div class="n" id="s-pend">0</div><div class="l">Pendentes</div></div>
+    <div class="stat ok"><div class="n" id="s-aprov">0</div><div class="l">Aprovados</div></div>
+  </div>
+
+  <!-- ferramentas -->
+  <div class="toolbar">
+    <input type="search" id="busca" placeholder="Pesquisar por nome, CPF, telefone, ID, cidade ou cargo…">
+    <input type="date" id="filtro-data" title="Filtrar por data">
+    <button class="btn btn-neutro btn-sm" onclick="carregar()">Atualizar</button>
+  </div>
+  <div class="filtros" style="margin-top:12px" id="filtros-status">
+    <span class="chip on" data-f="Todos">Todos</span>
+    <span class="chip" data-f="Novo cadastro">Novos</span>
+    <span class="chip" data-f="Em análise">Em análise</span>
+    <span class="chip" data-f="Entrevista">Entrevista</span>
+    <span class="chip" data-f="Aprovado">Aprovados</span>
+    <span class="chip" data-f="Reprovado">Reprovados</span>
+    <span class="chip" data-f="Contratado">Contratados</span>
+  </div>
+
+  <!-- tabela -->
+  <div class="tabela-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th><th>Nome</th><th>Cargo</th><th>Cidade</th><th>Telefone</th><th>Data</th><th>Status</th><th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <div class="vazio hidden" id="vazio"><div class="icone">📄</div>Nenhum cadastro encontrado.</div>
+  </div>
+  <div class="paginacao" id="paginacao"></div>
+</div>
+
+<!-- MODAL DETALHES -->
+<div class="modal" id="modal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 id="m-titulo">Cadastro</h3>
+      <button class="fechar-x" onclick="fecharModal()">×</button>
+    </div>
+    <div class="modal-body" id="m-body"></div>
+    <div class="modal-foot">
+      <button class="btn btn-perigo btn-sm" onclick="excluirAtual()">Excluir</button>
+      <button class="btn btn-neutro btn-sm" onclick="baixarPDFAtual()">Baixar PDF</button>
+      <button class="btn btn-primario btn-sm" onclick="salvarEdicao()">Salvar alterações</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay"><div class="spinner"></div><div>Carregando…</div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="config.js"></script>
+<script src="utils.js"></script>
+<script src="pdf.js"></script>
+<script src="painel.js"></script>
+</body>
+</html>

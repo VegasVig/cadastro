@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel Administrativo — Vegas Vigilância</title>
+<link rel="icon" href="../assets/logo-small.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="login-wrap">
+  <div class="login-card">
+    <img src="../assets/logo-vegas-escura.png" alt="Vegas Vigilância">
+    <h2>Painel Vegas Vigilância</h2>
+    <div class="sub">Acesso restrito a funcionários autorizados</div>
+    <form id="login-form">
+      <div class="campo">
+        <label>Usuário</label>
+        <input name="usuario" autocomplete="username" required>
+      </div>
+      <div class="campo">
+        <label>Senha</label>
+        <input name="senha" type="password" autocomplete="current-password" required>
+      </div>
+      <div class="msg-erro" id="login-erro" style="margin-bottom:12px">Usuário ou senha inválidos.</div>
+      <button class="btn btn-primario btn-bloco" id="btn-login" type="submit">Entrar</button>
+    </form>
+    <a href="index.html" style="display:inline-block;margin-top:18px;color:var(--texto-suave);font-size:.82rem;text-decoration:none">← Voltar ao cadastro</a>
+    <div id="demo-hint" class="dica" style="margin-top:18px"></div>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="utils.js"></script>
+<script>
+if(Sessao.logado()) location.href='painel.html';
+if(VEGAS_CONFIG.MODO_DEMO){
+  document.getElementById('demo-hint').innerHTML =
+    'Modo demonstração ativo — acesse com <b>admin</b> / <b>vegas123</b>.';
+}
+const f = document.getElementById('login-form');
+f.addEventListener('submit', async e=>{
+  e.preventDefault();
+  const btn=document.getElementById('btn-login');
+  const erro=document.getElementById('login-erro');
+  erro.classList.remove('on');
+  btn.disabled=true; btn.textContent='Entrando…';
+  try{
+    const r = await VegasAPI.login(f.usuario.value.trim(), f.senha.value);
+    if(r && r.ok){ Sessao.set(r.token, r.usuario||f.usuario.value); location.href='painel.html'; }
+    else { erro.textContent = (r&&r.erro)||'Usuário ou senha inválidos.'; erro.classList.add('on'); }
+  }catch(err){
+    erro.textContent='Erro de conexão. Tente novamente.'; erro.classList.add('on');
+  }finally{ btn.disabled=false; btn.textContent='Entrar'; }
+});
+</script>
+</body>
+</html>

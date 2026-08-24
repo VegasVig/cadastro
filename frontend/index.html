@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Ficha de Cadastro — Vegas Vigilância</title>
+<meta name="description" content="Ficha de cadastro para processo seletivo da Vegas Vigilância.">
+<link rel="icon" href="../assets/logo-small.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="topbar">
+  <div class="brand">
+    <img src="../assets/logo-vegas-branca.png" alt="Vegas Vigilância">
+  </div>
+  <div class="acoes">
+    <a href="admin.html">Painel Administrativo</a>
+  </div>
+</header>
+
+<!-- ================= TELA INICIAL ================= -->
+<section id="tela-inicio" class="wrap">
+  <div class="hero">
+    <img class="logo" src="../assets/logo-vegas-branca.png" alt="Vegas Vigilância">
+    <div class="selo">Recrutamento &amp; Seleção</div>
+    <h1>Ficha de Cadastro</h1>
+    <p>Preencha atentamente todos os seus dados. As informações fornecidas serão utilizadas para fins de cadastro e processo seletivo.</p>
+    <div class="btns">
+      <button class="btn btn-primario" onclick="iniciarCadastro()">Iniciar cadastro</button>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:22px">
+    <div class="secao-tit"><span class="icone">i</span> Como funciona</div>
+    <div class="grid grid-3">
+      <div class="info-box">1. Preencha a ficha em 5 etapas simples, no computador ou no celular.</div>
+      <div class="info-box">2. Ao finalizar, geramos sua ficha em PDF com número de protocolo.</div>
+      <div class="info-box">3. Você recebe o número do cadastro e pode baixar o PDF na hora.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FORMULÁRIO ================= -->
+<section id="tela-form" class="wrap hidden">
+
+  <!-- progresso -->
+  <div class="progresso">
+    <div class="progresso-barra"><span id="barra" style="width:16%"></span></div>
+    <div class="etapas" id="etapas">
+      <div class="etapa ativa" data-e="1"><div class="num">1</div><span class="rot">Pessoais</span></div>
+      <div class="etapa" data-e="2"><div class="num">2</div><span class="rot">Documentos</span></div>
+      <div class="etapa" data-e="3"><div class="num">3</div><span class="rot">Endereço</span></div>
+      <div class="etapa" data-e="4"><div class="num">4</div><span class="rot">Profissional</span></div>
+      <div class="etapa" data-e="5"><div class="num">5</div><span class="rot">Questionário</span></div>
+      <div class="etapa" data-e="6"><div class="num">6</div><span class="rot">Confirmação</span></div>
+    </div>
+  </div>
+
+  <form id="form" novalidate>
+
+  <!-- ---------- ETAPA 1: DADOS PESSOAIS ---------- -->
+  <div class="passo" data-passo="1">
+    <div class="card">
+      <div class="secao-tit"><span class="icone">1</span> Dados pessoais</div>
+      <div class="grid">
+        <div class="campo col-2">
+          <label>Nome completo <span class="req">*</span></label>
+          <input name="nome" required autocomplete="name">
+          <div class="msg-erro">Preencha este campo antes de continuar.</div>
+        </div>
+        <div class="campo">
+          <label>Data do cadastro</label>
+          <input name="data_cadastro" readonly>
+        </div>
+        <div class="campo">
+          <label>Cargo desejado <span class="req">*</span></label>
+          <input name="cargo" required placeholder="Ex.: Vigilante">
+          <div class="msg-erro">Preencha este campo antes de continuar.</div>
+        </div>
+        <div class="campo">
+          <label>Nome do pai</label>
+          <input name="pai">
+        </div>
+        <div class="campo">
+          <label>Nome da mãe</label>
+          <input name="mae">
+        </div>
+        <div class="campo">
+          <label>Data de nascimento <span class="req">*</span></label>
+          <input name="nascimento" inputmode="numeric" placeholder="dd/mm/aaaa" data-mask="data" required>
+          <div class="msg-erro">Informe uma data válida (dd/mm/aaaa).</div>
+        </div>
+        <div class="campo">
+          <label>Idade</label>
+          <input name="idade" readonly placeholder="calculada automaticamente">
+        </div>
+        <div class="campo">
+          <label>Naturalidade</label>
+          <input name="naturalidade" placeholder="Cidade / UF">
+        </div>
+        <div class="campo">
+          <label>CPF <span class="req">*</span></label>
+          <input name="cpf" inputmode="numeric" placeholder="000.000.000-00" data-mask="cpf" required>
+          <div class="msg-erro">Informe um CPF válido.</div>
+        </div>
+        <div class="campo">
+          <label>PIS</label>
+          <input name="pis" inputmode="numeric">
+        </div>
+        <div class="campo">
+          <label>Estado civil</label>
+          <select name="estado_civil">
+            <option value="">Selecione…</option>
+            <option>Solteiro(a)</option><option>Casado(a)</option><option>União estável</option>
+            <option>Divorciado(a)</option><option>Viúvo(a)</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label>Nome do cônjuge</label>
+          <input name="conjuge">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------- ETAPA 2: DOCUMENTAÇÃO ---------- -->
+  <div class="passo hidden" data-passo="2">
+    <div class="card">
+      <div class="secao-tit"><span class="icone">2</span> Documentação</div>
+      <div class="grid">
+        <div class="campo"><label>Carteira de Identidade / RG</label><input name="rg" inputmode="numeric"></div>
+        <div class="campo"><label>Órgão expedidor</label><input name="orgao_exp" placeholder="Ex.: DETRAN-RJ"></div>
+        <div class="campo"><label>Data de expedição</label><input name="data_exp" data-mask="data" inputmode="numeric" placeholder="dd/mm/aaaa"></div>
+        <div class="campo"><label>Carteira Profissional (CTPS)</label><input name="ctps"></div>
+        <div class="campo"><label>Título de Eleitor</label><input name="titulo" inputmode="numeric"></div>
+        <div class="campo"><label>Zona</label><input name="zona" inputmode="numeric"></div>
+        <div class="campo"><label>Seção</label><input name="secao_eleitoral" inputmode="numeric"></div>
+        <div class="campo"><label>Certificado de Reservista</label><input name="reservista"></div>
+      </div>
+
+      <div class="sub-tit">CNH</div>
+      <div class="grid">
+        <div class="campo">
+          <label>Possui CNH?</label>
+          <div class="opcoes">
+            <span class="opcao"><input type="radio" id="cnh_s" name="tem_cnh" value="Sim"><label for="cnh_s">Sim</label></span>
+            <span class="opcao"><input type="radio" id="cnh_n" name="tem_cnh" value="Não" checked><label for="cnh_n">Não</label></span>
+          </div>
+        </div>
+        <div class="grid col-2 condicional" data-cond="tem_cnh=Sim" style="gap:16px;grid-template-columns:1fr 1fr">
+          <div class="campo"><label>Categoria</label>
+            <select name="cnh_categoria"><option value="">—</option><option>A</option><option>B</option><option>AB</option><option>C</option><option>D</option><option>E</option></select>
+          </div>
+          <div class="campo"><label>Validade da CNH</label><input name="cnh_validade" data-mask="data" inputmode="numeric" placeholder="dd/mm/aaaa"></div>
+        </div>
+      </div>
+
+      <div class="sub-tit">ATA / Vigilante</div>
+      <div class="grid grid-3">
+        <div class="campo"><label>Data ATA</label><input name="ata_data" data-mask="data" inputmode="numeric" placeholder="dd/mm/aaaa"></div>
+        <div class="campo"><label>CNV</label><input name="cnv"></div>
+        <div class="campo"><label>Validade</label><input name="cnv_validade" data-mask="data" inputmode="numeric" placeholder="dd/mm/aaaa"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------- ETAPA 3: ENDEREÇO E CONTATO ---------- -->
+  <div class="passo hidden" data-passo="3">
+    <div class="card">
+      <div class="secao-tit"><span class="icone">3</span> Endereço e contato</div>
+      <div class="grid">
+        <div class="campo"><label>CEP</label><input name="cep" data-mask="cep" inputmode="numeric" placeholder="00000-000"><div class="dica">O endereço é preenchido automaticamente pelo CEP.</div></div>
+        <div class="campo col-2"><label>Endereço <span class="req">*</span></label><input name="endereco" required><div class="msg-erro">Preencha este campo antes de continuar.</div></div>
+        <div class="campo"><label>Número</label><input name="numero" inputmode="numeric"></div>
+        <div class="campo"><label>Bairro</label><input name="bairro"></div>
+        <div class="campo"><label>Cidade <span class="req">*</span></label><input name="cidade" required><div class="msg-erro">Preencha este campo antes de continuar.</div></div>
+        <div class="campo"><label>Telefone</label><input name="telefone" data-mask="tel" inputmode="tel" placeholder="(00) 0000-0000"></div>
+        <div class="campo"><label>Celular <span class="req">*</span></label><input name="celular" data-mask="tel" inputmode="tel" required placeholder="(00) 00000-0000"><div class="msg-erro">Informe um telefone/celular válido.</div></div>
+        <div class="campo"><label>E-mail <span class="req">*</span></label><input name="email" type="email" inputmode="email" required autocomplete="email"><div class="msg-erro">Informe um e-mail válido.</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="secao-tit"><span class="icone">4</span> Formação e informações pessoais</div>
+      <div class="grid">
+        <div class="campo"><label>Escolaridade</label>
+          <select name="escolaridade">
+            <option value="">Selecione…</option>
+            <option>Fundamental incompleto</option><option>Fundamental completo</option>
+            <option>Médio incompleto</option><option>Médio completo</option>
+            <option>Superior incompleto</option><option>Superior completo</option>
+          </select>
+        </div>
+        <div class="campo"><label>Carteira de habilitação</label><input name="habilitacao" placeholder="Categoria / nº"></div>
+        <div class="campo"><label>Validade da habilitação</label><input name="habilitacao_validade" data-mask="data" inputmode="numeric" placeholder="dd/mm/aaaa"></div>
+        <div class="campo"><label>Fator RH (tipo sanguíneo)</label><input name="fator_rh" placeholder="Ex.: O+"></div>
+        <div class="campo"><label>Quantas pessoas moram com você?</label><input name="pessoas_residencia" inputmode="numeric"></div>
+        <div class="campo"><label>Possui filhos?</label>
+          <div class="opcoes">
+            <span class="opcao"><input type="radio" id="f_s" name="tem_filhos" value="Sim"><label for="f_s">Sim</label></span>
+            <span class="opcao"><input type="radio" id="f_n" name="tem_filhos" value="Não" checked><label for="f_n">Não</label></span>
+          </div>
+        </div>
+        <div class="grid col-2 condicional" data-cond="tem_filhos=Sim" style="gap:16px;grid-template-columns:1fr 2fr">
+          <div class="campo"><label>Quantos filhos?</label><input name="qtd_filhos" inputmode="numeric"></div>
+          <div class="campo"><label>Idades dos filhos</label><input name="idades_filhos" placeholder="Ex.: 5, 8 e 12"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="secao-tit"><span class="icone">5</span> Informações para uniforme</div>
+      <div class="grid grid-3">
+        <div class="campo"><label>Peso (kg)</label><input name="peso" inputmode="decimal"></div>
+        <div class="campo"><label>Altura (m)</label><input name="altura" inputmode="decimal" placeholder="Ex.: 1,75"></div>
+        <div class="campo"><label>Número do sapato</label><input name="sapato" inputmode="numeric"></div>
+        <div class="campo"><label>Número da calça</label><input name="calca" inputmode="numeric"></div>
+        <div class="campo"><label>Número da camisa</label><input name="camisa"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="secao-tit"><span class="icone">6</span> Saúde e hábitos</div>
+      <div class="grid">
+        <div class="campo"><label>Fumante?</label>
+          <div class="opcoes">
+            <span class="opcao"><input type="radio" id="fu_s" name="fumante" value="Sim"><label for="fu_s">Sim</label></span>
+            <span class="opcao"><input type="radio" id="fu_n" name="fumante" value="Não" checked><label for="fu_n">Não</label></span>
+          </div>
+        </div>
+        <div class="campo"><label>Bebe socialmente?</label>
+          <div class="opcoes">
+            <span class="opcao"><input type="radio" id="be_s" name="bebe" value="Sim"><label for="be_s">Sim</label></span>
+            <span class="opcao"><input type="radio" id="be_n" name="bebe" value="Não" checked><label for="be_n">Não</label></span>
+          </div>
+        </div>
+        <div class="campo col-2"><label>Tomou alguma medicação nos últimos 6 meses?</label>
+          <div class="opcoes">
+            <span class="opcao"><input type="radio" id="me_s" name="medicacao" value="Sim"><label for="me_s">Sim</label></span>
+            <span class="opcao"><input type="radio" id="me_n" name="medicacao" value="Não" checked><label for="me_n">Não</label></span>
+          </div>
+        </div>
+        <div class="grid col-2 condicional" data-cond="medicacao=Sim" style="gap:16px;grid-template-columns:2fr 1fr">
+          <div class="campo"><label>Qual medicação?</label><input name="medicacao_qual"></div>
+          <div class="campo"><label>Por quanto tempo?</label><input name="medicacao_tempo"></div>
+        </div>
+        <div class="campo col-2"><label>Já fez alguma cirurgia?</label>
+          <div class="opcoes">
+            <span class="opcao"><input type="radio" id="ci_s" name="cirurgia" value="Sim"><label for="ci_s">Sim</label></span>
+            <span class="opcao"><input type="radio" id="ci_n" name="cirurgia" value="Não" checked><label for="ci_n">Não</label></span>
+          </div>
+        </div>
+        <div class="campo col-2 condicional" data-cond="cirurgia=Sim"><label>Se sim, por qual motivo?</label><input name="cirurgia_motivo"></div>
+        <div class="campo col-2"><label>Já fraturou algum osso?</label>
+          <div class="opcoes">
+            <span class="opcao"><input type="radio" id="fr_s" name="fratura" value="Sim"><label for="fr_s">Sim</label></span>
+            <span class="opcao"><input type="radio" id="fr_n" name="fratura" value="Não" checked><label for="fr_n">Não</label></span>
+          </div>
+        </div>
+        <div class="campo col-2 condicional" data-cond="fratura=Sim"><label>Se sim, por qual motivo?</label><input name="fratura_motivo"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="secao-tit"><span class="icone">7</span> Redes sociais e acesso</div>
+      <div class="grid">
+        <div class="campo col-2"><label>Você possui redes sociais?</label>
+          <div class="opcoes">
+            <span class="opcao"><input type="radio" id="rs_s" name="tem_redes" value="Sim"><label for="rs_s">Sim</label></span>
+            <span class="opcao"><input type="radio" id="rs_n" name="tem_redes" value="Não" checked><label for="rs_n">Não</label></span>
+          </div>
+        </div>
+        <div class="campo col-2 condicional" data-cond="tem_redes=Sim"><label>Qual? (rede social / usuário)</label><input name="redes_qual" placeholder="Ex.: Instagram @usuario"></div>
+        <div class="campo"><label>Usuário</label><input name="usuario"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------- ETAPA 4: PROFISSIONAL ---------- -->
+  <div class="passo hidden" data-passo="4">
+    <div class="card">
+      <div class="secao-tit"><span class="icone">8</span> Disponibilidade de turno</div>
+      <div class="grid">
+        <div class="campo"><label>Disponível durante o dia?</label>
+          <div class="opcoes">
+            <span class="opcao"><input type="radio" id="td_s" name="turno_dia" value="Sim" checked><label for="td_s">Sim</label></span>
+            <span class="opcao"><input type="radio" id="td_n" name="turno_dia" value="Não"><label for="td_n">Não</label></span>
+          </div>
+        </div>
+        <div class="campo"><label>Disponível durante a noite?</label>
+          <div class="opcoes">
+            <span class="opcao"><input type="radio" id="tn_s" name="turno_noite" value="Sim"><label for="tn_s">Sim</label></span>
+            <span class="opcao"><input type="radio" id="tn_n" name="turno_noite" value="Não" checked><label for="tn_n">Não</label></span>
+          </div>
+        </div>
+        <div class="campo col-2"><label>Observações sobre disponibilidade</label><textarea name="turno_obs" style="min-height:70px"></textarea></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="secao-tit"><span class="icone">9</span> Último emprego</div>
+      <div class="grid">
+        <div class="campo"><label>Último emprego (empresa)</label><input name="ult_emprego"></div>
+        <div class="campo"><label>Telefone</label><input name="ult_telefone" data-mask="tel" inputmode="tel" placeholder="(00) 0000-0000"></div>
+        <div class="campo"><label>Função</label><input name="ult_funcao"></div>
+        <div class="campo"><label>Data de admissão</label><input name="ult_admissao" data-mask="data" inputmode="numeric" placeholder="dd/mm/aaaa"></div>
+        <div class="campo"><label>Data de demissão</label><input name="ult_demissao" data-mask="data" inputmode="numeric" placeholder="dd/mm/aaaa"></div>
+        <div class="campo"><label>Motivo da saída</label><input name="ult_motivo"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="secao-tit"><span class="icone">10</span> Transporte</div>
+      <div class="grid">
+        <div class="campo col-2"><label>Vai utilizar transporte?</label>
+          <div class="opcoes">
+            <span class="opcao"><input type="radio" id="tr_s" name="usa_transporte" value="Sim"><label for="tr_s">Sim</label></span>
+            <span class="opcao"><input type="radio" id="tr_n" name="usa_transporte" value="Não" checked><label for="tr_n">Não</label></span>
+          </div>
+        </div>
+        <div class="grid col-2 condicional" data-cond="usa_transporte=Sim" style="gap:16px;grid-template-columns:1fr 1fr">
+          <div class="campo"><label>Qual linha?</label><input name="tr_linha"></div>
+          <div class="campo"><label>Número do cartão</label><input name="tr_cartao"></div>
+          <div class="campo"><label>Quantos ônibus?</label><input name="tr_qtd" inputmode="numeric"></div>
+          <div class="campo"><label>Valor de cada passagem</label><input name="tr_valor" data-mask="money" inputmode="numeric" placeholder="R$ 0,00"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="secao-tit"><span class="icone">11</span> Contatos de referência</div>
+      <div class="aviso-box">Obrigatório informar <b>3 números de contato</b> e os respectivos nomes.</div>
+      <div class="bloco-contato">
+        <div class="tit">Contato 1 <span class="req">*</span></div>
+        <div class="grid">
+          <div class="campo"><label>Nome</label><input name="ref1_nome" required><div class="msg-erro">Preencha o nome.</div></div>
+          <div class="campo"><label>Telefone</label><input name="ref1_tel" data-mask="tel" inputmode="tel" required placeholder="(00) 00000-0000"><div class="msg-erro">Informe um telefone válido.</div></div>
+        </div>
+      </div>
+      <div class="bloco-contato">
+        <div class="tit">Contato 2 <span class="req">*</span></div>
+        <div class="grid">
+          <div class="campo"><label>Nome</label><input name="ref2_nome" required><div class="msg-erro">Preencha o nome.</div></div>
+          <div class="campo"><label>Telefone</label><input name="ref2_tel" data-mask="tel" inputmode="tel" required placeholder="(00) 00000-0000"><div class="msg-erro">Informe um telefone válido.</div></div>
+        </div>
+      </div>
+      <div class="bloco-contato">
+        <div class="tit">Contato 3 <span class="req">*</span></div>
+        <div class="grid">
+          <div class="campo"><label>Nome</label><input name="ref3_nome" required><div class="msg-erro">Preencha o nome.</div></div>
+          <div class="campo"><label>Telefone</label><input name="ref3_tel" data-mask="tel" inputmode="tel" required placeholder="(00) 00000-0000"><div class="msg-erro">Informe um telefone válido.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="secao-tit"><span class="icone">12</span> Foto do candidato</div>
+      <div class="foto-box">
+        <div class="foto-preview" id="foto-preview">Nenhuma foto<br>selecionada</div>
+        <div class="foto-acoes">
+          <label class="btn btn-neutro btn-sm">Selecionar / tirar foto
+            <input type="file" id="foto-input" accept="image/*" capture="user" hidden>
+          </label>
+          <button type="button" class="btn btn-neutro btn-sm hidden" id="foto-remover" onclick="removerFoto()">Remover</button>
+        </div>
+        <div class="dica">No celular, você pode usar a câmera. A foto aparece na ficha em PDF.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------- ETAPA 5: QUESTIONÁRIO ---------- -->
+  <div class="passo hidden" data-passo="5">
+    <div class="card">
+      <div class="secao-tit"><span class="icone">13</span> Questionário — Processo seletivo</div>
+      <div class="politica">
+        <div class="rot">Política da Qualidade</div>
+        <p>"A VEGAS tem como compromissos fundamentais: a excelência no atendimento aos clientes e o constante aperfeiçoamento dos serviços prestados."</p>
+      </div>
+
+      <div class="pergunta">
+        <div><span class="p-num">1</span><span class="p-txt">Fale um pouco sobre você.</span></div>
+        <div class="p-dica">(casado, solteiro, o que gosta de fazer…)</div>
+        <div class="campo"><textarea name="q1"></textarea></div>
+      </div>
+      <div class="pergunta"><div><span class="p-num">2</span><span class="p-txt">Por que você deseja trabalhar conosco?</span></div><div class="campo"><textarea name="q2"></textarea></div></div>
+      <div class="pergunta"><div><span class="p-num">3</span><span class="p-txt">Fale sobre suas experiências profissionais anteriores.</span></div><div class="campo"><textarea name="q3"></textarea></div></div>
+      <div class="pergunta"><div><span class="p-num">4</span><span class="p-txt">Como você lida com pressão e prazos curtos?</span></div><div class="campo"><textarea name="q4"></textarea></div></div>
+      <div class="pergunta"><div><span class="p-num">5</span><span class="p-txt">O que você considera ser seus pontos fortes?</span></div><div class="campo"><textarea name="q5"></textarea></div></div>
+      <div class="pergunta"><div><span class="p-num">6</span><span class="p-txt">Quais são seus principais pontos a desenvolver?</span></div><div class="campo"><textarea name="q6"></textarea></div></div>
+      <div class="pergunta"><div><span class="p-num">7</span><span class="p-txt">Você está disposto(a) a aprender novas funções e participar de treinamentos?</span></div><div class="campo"><textarea name="q7"></textarea></div></div>
+      <div class="pergunta"><div><span class="p-num">8</span><span class="p-txt">Tem disponibilidade para início imediato? Se não, em quanto tempo?</span></div><div class="campo"><textarea name="q8"></textarea></div></div>
+      <div class="pergunta"><div><span class="p-num">9</span><span class="p-txt">Descreva uma situação de trabalho estressante que você viveu. Como lidou com ela?</span></div><div class="campo"><textarea name="q9"></textarea></div></div>
+    </div>
+  </div>
+
+  <!-- ---------- ETAPA 6: CONFIRMAÇÃO / CONSENTIMENTO ---------- -->
+  <div class="passo hidden" data-passo="6">
+    <div class="card">
+      <div class="secao-tit"><span class="icone">✓</span> Revisão e envio</div>
+      <div class="info-box mt">Revise seus dados usando o botão <b>Voltar</b> se necessário. Ao finalizar, geramos sua ficha em PDF com número de protocolo.</div>
+      <div class="consent mt">
+        <input type="checkbox" id="consent" name="consent">
+        <label for="consent">Declaro que as informações fornecidas são verdadeiras e estou ciente de que elas serão utilizadas pela Vegas Vigilância para fins de cadastro e processo seletivo.</label>
+      </div>
+      <div class="msg-erro" id="erro-consent" style="margin-top:8px">É necessário aceitar a declaração para finalizar.</div>
+    </div>
+  </div>
+
+  <!-- navegação -->
+  <div class="nav-etapas">
+    <button type="button" class="btn btn-neutro" id="btn-voltar" onclick="voltarPasso()" style="visibility:hidden">← Voltar</button>
+    <button type="button" class="btn btn-primario" id="btn-continuar" onclick="avancarPasso()">Continuar →</button>
+    <button type="button" class="btn btn-primario hidden" id="btn-finalizar" onclick="finalizar()">Finalizar cadastro</button>
+  </div>
+  </form>
+</section>
+
+<!-- ================= CONFIRMAÇÃO ================= -->
+<section id="tela-ok" class="wrap hidden">
+  <div class="card conf">
+    <img src="../assets/logo-vegas-escura.png" alt="Vegas Vigilância" style="height:44px;margin-bottom:8px">
+    <div class="check">✓</div>
+    <h2>Cadastro realizado com sucesso!</h2>
+    <p>Seu cadastro foi recebido pela Vegas Vigilância.</p>
+    <div class="id-badge" id="conf-id">#—</div>
+    <p id="conf-data" style="font-size:.85rem;color:var(--cinza-400)"></p>
+    <div class="btns">
+      <button class="btn btn-primario" onclick="baixarPDFConfirmacao()">Baixar ficha em PDF</button>
+      <button class="btn btn-neutro" onclick="novoCadastro()">Novo cadastro</button>
+    </div>
+  </div>
+</section>
+
+<!-- overlay -->
+<div class="overlay" id="overlay">
+  <div class="spinner"></div>
+  <div id="overlay-txt">Enviando seu cadastro…</div>
+</div>
+
+<div class="rodape">© <span id="ano"></span> <b>Vegas Vigilância e Segurança</b> — Sistema de Recrutamento e Seleção</div>
+
+<!-- Bibliotecas PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="config.js"></script>
+<script src="utils.js"></script>
+<script src="pdf.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
