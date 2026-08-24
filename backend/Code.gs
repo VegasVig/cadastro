@@ -160,8 +160,8 @@ function _login(usuario, senha){
  */
 function configurarInicial(){
   var pr = PropertiesService.getScriptProperties();
-  pr.setProperty('ADMIN_USER', 'admin');            // <-- troque
-  pr.setProperty('ADMIN_PASS', 'MudeEstaSenha!2025'); // <-- troque
+  pr.setProperty('ADMIN_USER', 'admin');       // usuário do painel
+  pr.setProperty('ADMIN_PASS', 'Vegas4747@');  // senha do painel
   // Se o script estiver VINCULADO à planilha, pode deixar SHEET_ID vazio.
   // Caso contrário, cole aqui o ID da planilha (da URL, entre /d/ e /edit):
   // pr.setProperty('SHEET_ID', 'COLE_O_ID_AQUI');

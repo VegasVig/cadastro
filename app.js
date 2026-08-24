@@ -194,7 +194,7 @@ async function finalizar(){
     const r = await VegasAPI.criar(ultimoRegistro);
     if(!r || !r.ok) throw new Error(r && r.erro || 'Falha no envio');
 
-    document.getElementById('overlay-txt').textContent = 'Gerando sua ficha em PDF…';
+    document.getElementById('overlay-txt').textContent = 'Registrando seu cadastro…';
     // pequena pausa para o usuário perceber a etapa
     await new Promise(res=>setTimeout(res,400));
 
@@ -212,10 +212,6 @@ async function finalizar(){
   }
 }
 
-function baixarPDFConfirmacao(){
-  if(!ultimoRegistro) return;
-  gerarPDF(ultimoRegistro, true);
-}
 function novoCadastro(){
   location.reload();
 }

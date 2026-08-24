@@ -21,7 +21,7 @@ function carregarLogoPDF(){
   });
 }
 
-const COR = { navy:[15,42,74], navy2:[27,75,128], dourado:[201,162,74], texto:[31,41,55], suave:[90,101,119], linha:[224,231,239], cinza:[245,247,250] };
+const COR = { navy:[22,23,25], navy2:[42,45,49], dourado:[158,164,173], texto:[28,30,33], suave:[92,98,107], linha:[224,227,232], cinza:[245,246,248] };
 
 async function gerarPDF(reg, baixar){
   const { jsPDF } = window.jspdf;
@@ -53,7 +53,7 @@ async function gerarPDF(reg, baixar){
     doc.setFont('helvetica','normal'); doc.setFontSize(7.5);
     doc.setTextColor(...COR.dourado);
     doc.text('Recrutamento e Seleção', PW-MX, 15.5, {align:'right'});
-    doc.setTextColor(200,210,225); doc.setFontSize(7);
+    doc.setTextColor(200,204,210); doc.setFontSize(7);
     doc.text('Protocolo: '+reg.id, PW-MX, 20, {align:'right'});
     doc.text('Emitido: '+formatarDataHora(reg.criado_em||agoraISO()), PW-MX, 23.5, {align:'right'});
   }

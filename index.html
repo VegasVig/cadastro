@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Ficha de Cadastro — Vegas Vigilância</title>
 <meta name="description" content="Ficha de cadastro para processo seletivo da Vegas Vigilância.">
-<link rel="icon" href="./assets/logo-small.png">
+<link rel="icon" href="assets/logo-small.png">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -14,7 +14,7 @@
 <!-- ================= HEADER ================= -->
 <header class="topbar">
   <div class="brand">
-    <img src="./assets/logo-vegas-branca.png" alt="Vegas Vigilância">
+    <img src="assets/logo-vegas-branca.png" alt="Vegas Vigilância">
   </div>
   <div class="acoes">
     <a href="admin.html">Painel Administrativo</a>
@@ -24,7 +24,7 @@
 <!-- ================= TELA INICIAL ================= -->
 <section id="tela-inicio" class="wrap">
   <div class="hero">
-    <img class="logo" src="./assets/logo-vegas-branca.png" alt="Vegas Vigilância">
+    <img class="logo" src="assets/logo-vegas-branca.png" alt="Vegas Vigilância">
     <div class="selo">Recrutamento &amp; Seleção</div>
     <h1>Ficha de Cadastro</h1>
     <p>Preencha atentamente todos os seus dados. As informações fornecidas serão utilizadas para fins de cadastro e processo seletivo.</p>
@@ -36,9 +36,9 @@
   <div class="card" style="margin-top:22px">
     <div class="secao-tit"><span class="icone">i</span> Como funciona</div>
     <div class="grid grid-3">
-      <div class="info-box">1. Preencha a ficha em 5 etapas simples, no computador ou no celular.</div>
-      <div class="info-box">2. Ao finalizar, geramos sua ficha em PDF com número de protocolo.</div>
-      <div class="info-box">3. Você recebe o número do cadastro e pode baixar o PDF na hora.</div>
+      <div class="info-box">1. Preencha a ficha em etapas simples, no computador ou no celular.</div>
+      <div class="info-box">2. Confira seus dados e finalize o envio do cadastro.</div>
+      <div class="info-box">3. Você recebe um número de protocolo. O RH dará andamento ao processo.</div>
     </div>
   </div>
 </section>
@@ -400,7 +400,7 @@
   <div class="passo hidden" data-passo="6">
     <div class="card">
       <div class="secao-tit"><span class="icone">✓</span> Revisão e envio</div>
-      <div class="info-box mt">Revise seus dados usando o botão <b>Voltar</b> se necessário. Ao finalizar, geramos sua ficha em PDF com número de protocolo.</div>
+      <div class="info-box mt">Revise seus dados usando o botão <b>Voltar</b> se necessário. Ao finalizar, você recebe um número de protocolo do seu cadastro.</div>
       <div class="consent mt">
         <input type="checkbox" id="consent" name="consent">
         <label for="consent">Declaro que as informações fornecidas são verdadeiras e estou ciente de que elas serão utilizadas pela Vegas Vigilância para fins de cadastro e processo seletivo.</label>
@@ -421,15 +421,15 @@
 <!-- ================= CONFIRMAÇÃO ================= -->
 <section id="tela-ok" class="wrap hidden">
   <div class="card conf">
-    <img src="./assets/logo-vegas-escura.png" alt="Vegas Vigilância" style="height:44px;margin-bottom:8px">
+    <img src="assets/logo-vegas-escura.png" alt="Vegas Vigilância" style="height:44px;margin-bottom:8px">
     <div class="check">✓</div>
     <h2>Cadastro realizado com sucesso!</h2>
     <p>Seu cadastro foi recebido pela Vegas Vigilância.</p>
     <div class="id-badge" id="conf-id">#—</div>
     <p id="conf-data" style="font-size:.85rem;color:var(--cinza-400)"></p>
+    <div class="info-box mt" style="text-align:left">Anote o número do seu protocolo acima. A equipe de Recursos Humanos entrará em contato caso seu perfil avance no processo seletivo.</div>
     <div class="btns">
-      <button class="btn btn-primario" onclick="baixarPDFConfirmacao()">Baixar ficha em PDF</button>
-      <button class="btn btn-neutro" onclick="novoCadastro()">Novo cadastro</button>
+      <button class="btn btn-primario" onclick="novoCadastro()">Novo cadastro</button>
     </div>
   </div>
 </section>
@@ -442,11 +442,8 @@
 
 <div class="rodape">© <span id="ano"></span> <b>Vegas Vigilância e Segurança</b> — Sistema de Recrutamento e Seleção</div>
 
-<!-- Bibliotecas PDF -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="config.js"></script>
 <script src="utils.js"></script>
-<script src="pdf.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

@@ -157,7 +157,7 @@ const VegasAPI = {
   async login(usuario, senha){
     if(VEGAS_CONFIG.MODO_DEMO){
       // credenciais demo
-      if(usuario==='admin' && senha==='vegas123')
+      if(usuario==='admin' && senha==='Vegas4747@')
         return { ok:true, token:'DEMO-TOKEN', usuario };
       return { ok:false, erro:'Usuário ou senha inválidos.' };
     }
