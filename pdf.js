@@ -32,6 +32,27 @@ async function gerarPDF(reg, baixar){
 
   const nomeArq = `Ficha_Cadastro_Vegas_${(reg.nome||'candidato').replace(/[^\w]+/g,'_').slice(0,30)}_${reg.id}.pdf`;
 
+  /* ---------- Formata qualquer data para dd/mm/aaaa ----------
+     Aceita: já em dd/mm/aaaa, ISO (2026-08-24T03:00:00.000Z),
+     objeto Date ou aaaa-mm-dd. Se não reconhecer, devolve como está. */
+  function dataBR(v){
+    if(v==null || v==='') return '';
+    if(v instanceof Date && !isNaN(v)){
+      var p=function(n){return String(n).padStart(2,'0');};
+      return p(v.getDate())+'/'+p(v.getMonth()+1)+'/'+v.getFullYear();
+    }
+    var s=String(v).trim();
+    if(/^\d{2}\/\d{2}\/\d{4}$/.test(s)) return s;              // já BR
+    var iso=/^(\d{4})-(\d{2})-(\d{2})/.exec(s);                // ISO ou aaaa-mm-dd
+    if(iso) return iso[3]+'/'+iso[2]+'/'+iso[1];
+    var d=new Date(s);
+    if(!isNaN(d)){
+      var q=function(n){return String(n).padStart(2,'0');};
+      return q(d.getDate())+'/'+q(d.getMonth()+1)+'/'+d.getFullYear();
+    }
+    return s;
+  }
+
   /* ---------- Cabeçalho (repete em cada página) ---------- */
   function cabecalho(){
     doc.setFillColor(...COR.navy); doc.rect(0,0,PW,26,'F');
@@ -134,13 +155,22 @@ async function gerarPDF(reg, baixar){
 
   /* ================= CONTEÚDO ================= */
 
-  // Foto (canto superior da 1ª seção, se houver)
+  // Faixa de foto (topo da 1ª página) — ocupa sua própria altura,
+  // então os campos abaixo nunca ficam sobrepostos a ela.
   if(reg.foto){
     try{
-      const fw=26, fh=32;
-      doc.setDrawColor(...COR.navy2); doc.setLineWidth(0.4);
-      doc.addImage(reg.foto, 'JPEG', PW-MX-fw, y, fw, fh);
-      doc.rect(PW-MX-fw, y, fw, fh, 'S');
+      const fw=28, fh=35;
+      const fx=PW-MX-fw, fy=y;
+      // rótulo à esquerda da foto
+      doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor(...COR.suave);
+      doc.text('FOTO DO CANDIDATO', MX, fy+5);
+      doc.setFont('helvetica','normal'); doc.setFontSize(7.5); doc.setTextColor(...COR.suave);
+      doc.text(reg.nome||'', MX, fy+10);
+      // moldura + imagem
+      doc.setFillColor(255,255,255); doc.rect(fx-0.8, fy-0.8, fw+1.6, fh+1.6, 'F');
+      doc.addImage(reg.foto, 'JPEG', fx, fy, fw, fh);
+      doc.setDrawColor(...COR.navy2); doc.setLineWidth(0.5); doc.rect(fx, fy, fw, fh, 'S');
+      y += fh + 4; // reserva o espaço da foto
     }catch(e){ console.warn('foto pdf', e); }
   }
 
@@ -148,8 +178,8 @@ async function gerarPDF(reg, baixar){
   campos([
     ['Nome completo', reg.nome, 2],
     ['Cargo desejado', reg.cargo],
-    ['Data do cadastro', reg.data_cadastro],
-    ['Data de nascimento', reg.nascimento],
+    ['Data do cadastro', dataBR(reg.data_cadastro)],
+    ['Data de nascimento', dataBR(reg.nascimento)],
     ['Idade', reg.idade],
     ['CPF', reg.cpf],
     ['PIS', reg.pis],
@@ -163,13 +193,13 @@ async function gerarPDF(reg, baixar){
   secao('Documentação');
   campos([
     ['RG', reg.rg],['Órgão expedidor', reg.orgao_exp],
-    ['Data de expedição', reg.data_exp],['Carteira profissional', reg.ctps],
+    ['Data de expedição', dataBR(reg.data_exp)],['Carteira profissional', reg.ctps],
     ['Título de eleitor', reg.titulo],['Zona / Seção', (reg.zona||'—')+' / '+(reg.secao_eleitoral||'—')],
     ['Cert. Reservista', reg.reservista],['Fator RH', reg.fator_rh],
     ['Possui CNH', reg.tem_cnh],['Categoria CNH', reg.cnh_categoria],
-    ['Validade CNH', reg.cnh_validade],['Habilitação', reg.habilitacao],
-    ['Data ATA', reg.ata_data],['CNV', reg.cnv],['Validade CNV', reg.cnv_validade],
-    ['Validade habilitação', reg.habilitacao_validade],
+    ['Validade CNH', dataBR(reg.cnh_validade)],['Habilitação', reg.habilitacao],
+    ['Data ATA', dataBR(reg.ata_data)],['CNV', reg.cnv],['Validade CNV', dataBR(reg.cnv_validade)],
+    ['Validade habilitação', dataBR(reg.habilitacao_validade)],
   ]);
 
   secao('Endereço e contato');
@@ -210,8 +240,8 @@ async function gerarPDF(reg, baixar){
     ['Turno dia', reg.turno_dia],['Turno noite', reg.turno_noite],
     ['Obs. disponibilidade', reg.turno_obs, 2],
     ['Último emprego', reg.ult_emprego],['Telefone', reg.ult_telefone],
-    ['Função', reg.ult_funcao],['Admissão', reg.ult_admissao],
-    ['Demissão', reg.ult_demissao],['Motivo da saída', reg.ult_motivo],
+    ['Função', reg.ult_funcao],['Admissão', dataBR(reg.ult_admissao)],
+    ['Demissão', dataBR(reg.ult_demissao)],['Motivo da saída', reg.ult_motivo],
   ]);
 
   secao('Transporte');
@@ -251,7 +281,7 @@ async function gerarPDF(reg, baixar){
   // Departamento pessoal (uso interno)
   secao('Preenchimento do setor de departamento pessoal (uso interno)');
   campos([
-    ['Empresa Vegas', reg.dp_empresa],['Data de admissão', reg.dp_admissao],
+    ['Empresa Vegas', reg.dp_empresa],['Data de admissão', dataBR(reg.dp_admissao)],
     ['Função', reg.dp_funcao],['Horário de trabalho', reg.dp_horario],
     ['Posto de serviço', reg.dp_posto],['Vales transportes', reg.dp_vale],
     ['Status atual', reg.status, 2],
