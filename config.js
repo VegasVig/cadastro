@@ -17,8 +17,8 @@ const VEGAS_CONFIG = {
   PREFIXO_ID: "VG",
 
   // Caminho da logo (relativo à pasta frontend)
-  LOGO_BRANCA: "../assets/logo-vegas-branca.png",
-  LOGO_ESCURA: "../assets/logo-vegas-escura.png",
+  LOGO_BRANCA: "./assets/logo-vegas-branca.png",
+  LOGO_ESCURA: "./assets/logo-vegas-escura.png",
 
   // Itens de status disponíveis
   STATUS: ["Novo cadastro","Em análise","Entrevista","Aprovado","Reprovado","Contratado"],
