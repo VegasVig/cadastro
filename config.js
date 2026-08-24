@@ -10,7 +10,7 @@
 
 const VEGAS_CONFIG = {
   // Ex.: "https://script.google.com/macros/s/AKfycb..../exec"
-  API_URL: "",
+  API_URL: "https://script.google.com/macros/s/AKfycbwHxqTIez2TrnrvFhtutqlIxSMMdgdh_vgLiSsht3c94NDsT2X6Uvz1kM2bXAI2QQEQ/exec",
 
   // Nome exibido / prefixo do ID
   EMPRESA: "VEGAS VIGILÂNCIA",
