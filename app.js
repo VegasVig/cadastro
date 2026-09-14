@@ -27,6 +27,43 @@ document.querySelectorAll('[data-mask]').forEach(el=>{
 /* ---------- Idade automática ---------- */
 form.nascimento.addEventListener('input', ()=>{ form.idade.value = calcularIdade(form.nascimento.value); });
 
+/* ---------- Passagens: campos de valor por trecho (ida/volta) ---------- */
+function gerarCamposPassagem(){
+  const qtdEl = document.getElementById('tr_qtd');
+  const box   = document.getElementById('tr_valores_box');
+  const grid  = document.getElementById('tr_valores');
+  if(!qtdEl||!box||!grid) return;
+  let n = parseInt((qtdEl.value||'').replace(/\D/g,''),10);
+  if(!n || n<1){ box.style.display='none'; grid.innerHTML=''; return; }
+  if(n>6) n=6;                                   // limite de segurança
+  // guarda valores já digitados para não perder ao regenerar
+  const antigos={};
+  grid.querySelectorAll('input').forEach(i=>antigos[i.name]=i.value);
+  let html='';
+  for(let i=1;i<=n;i++){
+    html+=`<div class="campo"><label>Valor ida ${n>1?i:''} <span class="req">*</span></label>
+      <input name="tr_ida_${i}" data-mask="money" inputmode="numeric" placeholder="R$ 0,00" required>
+      <div class="msg-erro">Informe o valor.</div></div>`;
+  }
+  for(let i=1;i<=n;i++){
+    html+=`<div class="campo"><label>Valor volta ${n>1?i:''} <span class="req">*</span></label>
+      <input name="tr_volta_${i}" data-mask="money" inputmode="numeric" placeholder="R$ 0,00" required>
+      <div class="msg-erro">Informe o valor.</div></div>`;
+  }
+  grid.innerHTML=html;
+  box.style.display='';
+  // aplica máscara e restaura valores anteriores
+  grid.querySelectorAll('input[data-mask]').forEach(el=>{
+    aplicarMascara(el, MASKS[el.dataset.mask]);
+    if(antigos[el.name]!==undefined) el.value=antigos[el.name];
+    el.addEventListener('input', ()=>limparErro(el));
+  });
+}
+const _trQtd = document.getElementById('tr_qtd');
+if(_trQtd){
+  _trQtd.addEventListener('input', ()=>{ _trQtd.value=_trQtd.value.replace(/\D/g,''); gerarCamposPassagem(); });
+}
+
 /* ---------- CEP automático ---------- */
 form.cep.addEventListener('blur', async ()=>{
   const cep = form.cep.value.replace(/\D/g,'');

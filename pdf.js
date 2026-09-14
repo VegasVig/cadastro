@@ -248,7 +248,8 @@ async function gerarPDF(reg, baixar){
   campos([
     ['Vai utilizar transporte', reg.usa_transporte],['Linha', reg.tr_linha],
     ['Nº do cartão', reg.tr_cartao],['Qtd. ônibus', reg.tr_qtd],
-    ['Valor da passagem', reg.tr_valor, 2],
+    ...passagensItens(reg),
+    ['Total passagens (ida+volta)', passagensTotal(reg), 2],
   ]);
 
   secao('Contatos de referência');

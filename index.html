@@ -324,8 +324,15 @@
         <div class="grid col-2 condicional" data-cond="usa_transporte=Sim" style="gap:16px;grid-template-columns:1fr 1fr">
           <div class="campo"><label>Qual linha?</label><input name="tr_linha"></div>
           <div class="campo"><label>Número do cartão</label><input name="tr_cartao"></div>
-          <div class="campo"><label>Quantos ônibus?</label><input name="tr_qtd" inputmode="numeric"></div>
-          <div class="campo"><label>Valor de cada passagem</label><input name="tr_valor" data-mask="money" inputmode="numeric" placeholder="R$ 0,00"></div>
+          <div class="campo col-2"><label>Quantos ônibus você pega para ir? <span class="req">*</span></label>
+            <input name="tr_qtd" id="tr_qtd" inputmode="numeric" maxlength="1" placeholder="Ex.: 1, 2, 3..." required>
+            <div class="msg-erro">Informe quantos ônibus você pega.</div>
+            <small style="color:#7a8699;display:block;margin-top:4px">A volta terá a mesma quantidade. Ex.: 2 ônibus = 2 idas e 2 voltas.</small>
+          </div>
+          <div class="campo col-2" id="tr_valores_box" style="display:none">
+            <label>Valor de cada passagem <span class="req">*</span></label>
+            <div id="tr_valores" style="display:grid;gap:12px;grid-template-columns:1fr 1fr"></div>
+          </div>
         </div>
       </div>
     </div>

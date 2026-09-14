@@ -196,7 +196,9 @@ function abrirModal(id){
 
     ${secao('Transporte')}
     ${item('Usa transporte',r.usa_transporte)}${item('Linha',r.tr_linha)}
-    ${item('Cartão',r.tr_cartao)}${item('Qtd ônibus',r.tr_qtd)}${item('Valor',r.tr_valor)}
+    ${item('Cartão',r.tr_cartao)}${item('Qtd ônibus',r.tr_qtd)}
+    ${passagensItens(r).map(([lbl,val])=>item(lbl,val)).join('')}
+    ${item('Total passagens (ida+volta)',passagensTotal(r))}
 
     ${secao('Contatos de referência')}
     ${item('Contato 1',(r.ref1_nome||'—')+' — '+(r.ref1_tel||''))}
