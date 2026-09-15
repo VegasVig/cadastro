@@ -172,3 +172,64 @@ const Sessao = {
   limpar(){ sessionStorage.removeItem('vegas_admin'); },
   logado(){ const s=this.get(); return !!(s&&s.token); }
 };
+
+/* ---------- Passagens (ida e volta por trecho) ----------
+   O formulário gera tr_ida_1..N e tr_volta_1..N conforme a
+   quantidade de ônibus. Estas duas funções leem esses campos
+   e são usadas pelo painel e pelo PDF. Cadastros antigos, que
+   tinham só tr_valor, continuam aparecendo certo.            */
+
+function valorPassagem(v){
+  if(typeof v === 'number') return v;
+  const s = String(v==null?'':v).replace(/\D/g,'');
+  return s ? parseInt(s,10)/100 : 0;
+}
+
+function moedaBR(n){
+  return 'R$ ' + (Number(n)||0).toLocaleString('pt-BR',
+    {minimumFractionDigits:2, maximumFractionDigits:2});
+}
+
+/* devolve [[rótulo, valor], ...] para o painel e para o PDF */
+function passagensItens(r){
+  r = r || {};
+  const qtd = Math.min(parseInt(String(r.tr_qtd||'').replace(/\D/g,''),10) || 0, 6);
+  const itens = [];
+
+  ['ida','volta'].forEach(trecho=>{
+    for(let i=1;i<=6;i++){
+      const v = r['tr_'+trecho+'_'+i];
+      if(v===undefined || v===null || String(v).trim()==='') continue;
+      const nome = trecho==='ida' ? 'Ida' : 'Volta';
+      itens.push([qtd>1 ? nome+' '+i : nome, moedaBR(valorPassagem(v))]);
+    }
+  });
+
+  /* cadastro feito antes da mudança */
+  if(!itens.length && r.tr_valor) itens.push(['Valor da passagem', r.tr_valor]);
+
+  return itens;
+}
+
+/* soma do dia: todas as idas mais todas as voltas */
+function passagensTotal(r){
+  r = r || {};
+  let soma = 0, achou = false;
+
+  ['ida','volta'].forEach(trecho=>{
+    for(let i=1;i<=6;i++){
+      const v = r['tr_'+trecho+'_'+i];
+      if(v===undefined || v===null || String(v).trim()==='') continue;
+      soma += valorPassagem(v); achou = true;
+    }
+  });
+
+  if(!achou){
+    /* cadastro antigo: valor único vezes a quantidade, ida e volta */
+    const qtd = parseInt(String(r.tr_qtd||'').replace(/\D/g,''),10) || 0;
+    const unit = valorPassagem(r.tr_valor);
+    if(unit && qtd) return moedaBR(unit * qtd * 2);
+    return '—';
+  }
+  return moedaBR(soma);
+}
