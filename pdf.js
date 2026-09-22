@@ -188,6 +188,9 @@ async function gerarPDF(reg, baixar){
     ['Nome do pai', reg.pai],
     ['Nome da mãe', reg.mae],
     ['Nome do cônjuge', reg.conjuge, 2],
+    ['Tem filhos', reg.tem_filhos],
+    ['Quantos filhos', reg.qtd_filhos],
+    ['Idade dos filhos', reg.idades_filhos, 2],
   ]);
 
   secao('Documentação');
@@ -214,8 +217,7 @@ async function gerarPDF(reg, baixar){
   secao('Formação e informações pessoais');
   campos([
     ['Escolaridade', reg.escolaridade],['Fator RH', reg.fator_rh],
-    ['Pessoas na residência', reg.pessoas_residencia],['Possui filhos', reg.tem_filhos],
-    ['Qtd. filhos', reg.qtd_filhos],['Idades dos filhos', reg.idades_filhos],
+    ['Pessoas na residência', reg.pessoas_residencia],
   ]);
 
   secao('Informações para uniforme');

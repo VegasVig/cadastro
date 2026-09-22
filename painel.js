@@ -161,6 +161,7 @@ function abrirModal(id){
     ${item('CPF',r.cpf)}${item('PIS',r.pis)}
     ${item('Naturalidade',r.naturalidade)}${item('Estado civil',r.estado_civil)}
     ${item('Pai',r.pai)}${item('Mãe',r.mae)}${item('Cônjuge',r.conjuge)}
+    ${item('Tem filhos',r.tem_filhos)}${item('Quantos',r.qtd_filhos)}${item('Idade dos filhos',r.idades_filhos)}
 
     ${secao('Documentação')}
     ${item('RG',r.rg)}${item('Órgão exp.',r.orgao_exp)}${item('Data exp.',r.data_exp)}
@@ -176,8 +177,7 @@ function abrirModal(id){
     ${item('E-mail',r.email)}${item('Escolaridade',r.escolaridade)}
 
     ${secao('Informações pessoais e uniforme')}
-    ${item('Pessoas na residência',r.pessoas_residencia)}${item('Filhos',r.tem_filhos+(r.qtd_filhos?(' ('+r.qtd_filhos+')'):''))}
-    ${item('Idades filhos',r.idades_filhos)}${item('Peso/Altura',(r.peso||'—')+' / '+(r.altura||'—'))}
+    ${item('Pessoas na residência',r.pessoas_residencia)}${item('Peso/Altura',(r.peso||'—')+' / '+(r.altura||'—'))}
     ${item('Sapato',r.sapato)}${item('Calça',r.calca)}${item('Camisa',r.camisa)}
 
     ${secao('Saúde e hábitos')}

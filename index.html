@@ -122,6 +122,16 @@
           <label>Nome do cônjuge</label>
           <input name="conjuge">
         </div>
+        <div class="campo"><label>Tem filhos?</label>
+          <div class="opcoes">
+            <span class="opcao"><input type="radio" id="f_s" name="tem_filhos" value="Sim"><label for="f_s">Sim</label></span>
+            <span class="opcao"><input type="radio" id="f_n" name="tem_filhos" value="Não" checked><label for="f_n">Não</label></span>
+          </div>
+        </div>
+        <div class="grid col-2 condicional" data-cond="tem_filhos=Sim" style="gap:16px;grid-template-columns:1fr 2fr">
+          <div class="campo"><label>Quantos filhos?</label><input name="qtd_filhos" inputmode="numeric" placeholder="Ex.: 2"></div>
+          <div class="campo"><label>Idade dos filhos</label><input name="idades_filhos" placeholder="Ex.: 5, 8 e 12"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -198,16 +208,6 @@
         <div class="campo"><label>Validade da habilitação</label><input name="habilitacao_validade" data-mask="data" inputmode="numeric" placeholder="dd/mm/aaaa"></div>
         <div class="campo"><label>Fator RH (tipo sanguíneo)</label><input name="fator_rh" placeholder="Ex.: O+"></div>
         <div class="campo"><label>Quantas pessoas moram com você?</label><input name="pessoas_residencia" inputmode="numeric"></div>
-        <div class="campo"><label>Possui filhos?</label>
-          <div class="opcoes">
-            <span class="opcao"><input type="radio" id="f_s" name="tem_filhos" value="Sim"><label for="f_s">Sim</label></span>
-            <span class="opcao"><input type="radio" id="f_n" name="tem_filhos" value="Não" checked><label for="f_n">Não</label></span>
-          </div>
-        </div>
-        <div class="grid col-2 condicional" data-cond="tem_filhos=Sim" style="gap:16px;grid-template-columns:1fr 2fr">
-          <div class="campo"><label>Quantos filhos?</label><input name="qtd_filhos" inputmode="numeric"></div>
-          <div class="campo"><label>Idades dos filhos</label><input name="idades_filhos" placeholder="Ex.: 5, 8 e 12"></div>
-        </div>
       </div>
     </div>
 
